@@ -71,7 +71,7 @@ function db_delete($table,$param=[]){
     }else{
         $sql .= ' AND id = "' . $param . '" '; //刪除功能，記得把id加回來
     }
-    return $conn -> exec($sql);//記得return
+    return $conn -> exec($sql);//記得return(exec執行)
 }
 
 function db_save($table,$param=[]){
@@ -82,7 +82,7 @@ function db_save($table,$param=[]){
     if($id){
         $tmp=[];
         foreach($param as $key => $value){
-            $tmp[]= $key . ' = "' . $value . '" '; //沒有and
+            $tmp[]= $key . ' = "' . $value . '" '; //沒有AND
         }
 
         $sql .= ' UPDATE ' .$table; //記得全部是.=
@@ -97,15 +97,15 @@ function db_save($table,$param=[]){
 
     return $conn -> exec($sql);//記得return
 }
-function db_query($sql,$param=[]){
+function db_query($sql,$param=[]){ //這個function工具是用日後直接寫sql語句用
     global $conn;
-    $state=$conn->prepare($sql);//記得$state=
+    $state=$conn->prepare($sql);//記得$state
 
     if(is_array($param)){
         $state->execute($param);//這句熟記
     }
 
-    //$state = $conn -> query($sql); 這句不熟，因為if已經做了
+    //$state = $conn -> query($sql); 這句不用，因為if已經做了
     return $state->fetchAll(PDO::FETCH_ASSOC);
 }
 
